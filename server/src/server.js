@@ -1,8 +1,8 @@
+
 import "dotenv/config";
 
 import app from "./app.js";
 import connectDatabase from "./config/db.js";
-import transporter from "./config/mailer.js";
 
 const PORT = process.env.PORT || 5000;
 
@@ -13,7 +13,6 @@ const startServer = async () => {
       "JWT_SECRET",
       "EMAIL_USER",
       "EMAIL_PASS",
-      "CLIENT_URL",
     ];
 
     const missingVariables = requiredVariables.filter(
@@ -33,11 +32,10 @@ const startServer = async () => {
     }
 
     await connectDatabase();
-    await transporter.verify();
 
     app.listen(PORT, "0.0.0.0", () => {
-  console.log(`Code-a-Nova server running on port $DIL0`);
-});
+      console.log(`Code-a-Nova server running on port ${PORT}`);
+    });
 
   } catch (error) {
     console.error("Server startup failed:", error.message);
@@ -46,3 +44,4 @@ const startServer = async () => {
 };
 
 startServer();
+
